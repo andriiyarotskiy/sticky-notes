@@ -1,4 +1,4 @@
-import type { Position, Rect, ResizeHandle, Size } from '@/types'
+import type { Position, Rect, ResizeHandle, Size } from "@/types"
 
 /**
  * Pure geometry helpers. Deliberately free of React and of any notion of
@@ -62,27 +62,27 @@ export function resizeRect(
 ): Rect {
   let { x, y, width, height } = start
 
-  if (handle.includes('e')) {
+  if (handle.includes("e")) {
     width = start.width + delta.x
   }
-  if (handle.includes('s')) {
+  if (handle.includes("s")) {
     height = start.height + delta.y
   }
-  if (handle.includes('w')) {
+  if (handle.includes("w")) {
     width = start.width - delta.x
     x = start.x + delta.x
   }
-  if (handle.includes('n')) {
+  if (handle.includes("n")) {
     height = start.height - delta.y
     y = start.y + delta.y
   }
 
   if (width < minSize.width) {
-    if (handle.includes('w')) x = start.x + start.width - minSize.width
+    if (handle.includes("w")) x = start.x + start.width - minSize.width
     width = minSize.width
   }
   if (height < minSize.height) {
-    if (handle.includes('n')) y = start.y + start.height - minSize.height
+    if (handle.includes("n")) y = start.y + start.height - minSize.height
     height = minSize.height
   }
 

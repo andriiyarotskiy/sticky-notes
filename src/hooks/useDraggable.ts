@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
-import type { PointerEvent as ReactPointerEvent, RefObject } from 'react'
-import type { Position } from '@/types'
+import { useCallback, useEffect, useRef, useState } from "react"
+import type { PointerEvent as ReactPointerEvent, RefObject } from "react"
+import type { Position } from "@/types"
 
 export interface UseDraggableOptions {
   /** Element that is moved. Its `left`/`top` must already reflect `position`. */
@@ -113,14 +113,14 @@ export function useDraggable({
       }
 
       element.setPointerCapture(event.pointerId)
-      element.addEventListener('pointermove', handleMove)
-      element.addEventListener('pointerup', handleEnd)
-      element.addEventListener('pointercancel', handleEnd)
+      element.addEventListener("pointermove", handleMove)
+      element.addEventListener("pointerup", handleEnd)
+      element.addEventListener("pointercancel", handleEnd)
 
       teardownRef.current = () => {
-        element.removeEventListener('pointermove', handleMove)
-        element.removeEventListener('pointerup', handleEnd)
-        element.removeEventListener('pointercancel', handleEnd)
+        element.removeEventListener("pointermove", handleMove)
+        element.removeEventListener("pointerup", handleEnd)
+        element.removeEventListener("pointercancel", handleEnd)
         if (element.hasPointerCapture(gesture.pointerId)) {
           element.releasePointerCapture(gesture.pointerId)
         }

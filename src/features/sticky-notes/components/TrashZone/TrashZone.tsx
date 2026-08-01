@@ -1,5 +1,5 @@
-import type { RefObject } from 'react'
-import './TrashZone.css'
+import type { RefObject } from "react"
+import "./TrashZone.css"
 
 interface TrashZoneProps {
   zoneRef: RefObject<HTMLDivElement | null>
@@ -11,7 +11,7 @@ function TrashZone({ zoneRef, isActive }: TrashZoneProps) {
   return (
     <div
       ref={zoneRef}
-      className={`trash-zone${isActive ? ' trash-zone--active' : ''}`}
+      className={`trash-zone${isActive ? " trash-zone--active" : ""}`}
       aria-hidden="true"
     >
       <svg className="trash-zone__icon" viewBox="0 0 24 24" fill="none">

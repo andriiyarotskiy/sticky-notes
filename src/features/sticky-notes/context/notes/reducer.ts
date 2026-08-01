@@ -1,6 +1,6 @@
-import { NOTE_COLORS } from '@features/sticky-notes/model/constants'
-import type { Note } from '@features/sticky-notes/model/types'
-import type { Position, Rect } from '@/types'
+import { NOTE_COLORS } from "@features/sticky-notes/model/constants"
+import type { Note } from "@features/sticky-notes/model/types"
+import type { Position, Rect } from "@/types"
 
 export interface NotesState {
   notes: Note[]
@@ -9,14 +9,14 @@ export interface NotesState {
 }
 
 export type NotesAction =
-  | { type: 'notes/hydrated'; payload: { notes: Note[] } }
-  | { type: 'note/added'; payload: { rect: Rect } }
-  | { type: 'note/moved'; payload: { id: string; position: Position } }
-  | { type: 'note/resized'; payload: { id: string; rect: Rect } }
-  | { type: 'note/removed'; payload: { id: string } }
-  | { type: 'note/broughtToFront'; payload: { id: string } }
-  | { type: 'note/colorChanged'; payload: { id: string; color: string } }
-  | { type: 'note/textChanged'; payload: { id: string; text: string } }
+  | { type: "notes/hydrated"; payload: { notes: Note[] } }
+  | { type: "note/added"; payload: { rect: Rect } }
+  | { type: "note/moved"; payload: { id: string; position: Position } }
+  | { type: "note/resized"; payload: { id: string; rect: Rect } }
+  | { type: "note/removed"; payload: { id: string } }
+  | { type: "note/broughtToFront"; payload: { id: string } }
+  | { type: "note/colorChanged"; payload: { id: string; color: string } }
+  | { type: "note/textChanged"; payload: { id: string; text: string } }
 
 export const initialNotesState: NotesState = {
   notes: [],
@@ -31,7 +31,7 @@ export function notesReducer(
   action: NotesAction,
 ): NotesState {
   switch (action.type) {
-    case 'notes/hydrated': {
+    case "notes/hydrated": {
       const { notes } = action.payload
       let maxNumericId = 0
       let topZIndex = 0
@@ -43,13 +43,13 @@ export function notesReducer(
       return { notes, nextId: maxNumericId + 1, topZIndex }
     }
 
-    case 'note/added': {
+    case "note/added": {
       const zIndex = state.topZIndex + 1
       const note: Note = {
         ...action.payload.rect,
         id: `note-${state.nextId}`,
         color: NOTE_COLORS[(state.nextId - 1) % NOTE_COLORS.length],
-        text: '',
+        text: "",
         zIndex,
       }
       return {
@@ -59,7 +59,7 @@ export function notesReducer(
       }
     }
 
-    case 'note/moved': {
+    case "note/moved": {
       const { id, position } = action.payload
       const note = state.notes.find((candidate) => candidate.id === id)
       // A click without movement commits the position it started from; bailing
@@ -77,7 +77,7 @@ export function notesReducer(
       }
     }
 
-    case 'note/resized': {
+    case "note/resized": {
       const { id, rect } = action.payload
       const note = state.notes.find((candidate) => candidate.id === id)
       if (
@@ -97,7 +97,7 @@ export function notesReducer(
       }
     }
 
-    case 'note/removed': {
+    case "note/removed": {
       const { id } = action.payload
       if (!state.notes.some((candidate) => candidate.id === id)) return state
       return {
@@ -106,7 +106,7 @@ export function notesReducer(
       }
     }
 
-    case 'note/broughtToFront': {
+    case "note/broughtToFront": {
       const { id } = action.payload
       const note = state.notes.find((candidate) => candidate.id === id)
       if (!note || note.zIndex === state.topZIndex) return state
@@ -121,7 +121,7 @@ export function notesReducer(
       }
     }
 
-    case 'note/colorChanged': {
+    case "note/colorChanged": {
       const { id, color } = action.payload
       const note = state.notes.find((candidate) => candidate.id === id)
       if (!note || note.color === color) return state
@@ -133,7 +133,7 @@ export function notesReducer(
       }
     }
 
-    case 'note/textChanged': {
+    case "note/textChanged": {
       const { id, text } = action.payload
       const note = state.notes.find((candidate) => candidate.id === id)
       if (!note || note.text === text) return state

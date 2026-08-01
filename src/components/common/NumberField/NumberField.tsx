@@ -1,5 +1,5 @@
-import { useId } from 'react'
-import './NumberField.css'
+import { useId } from "react"
+import "./NumberField.css"
 
 export interface NumberFieldProps {
   label: string

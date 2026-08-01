@@ -1,10 +1,10 @@
-import { useState } from 'react'
-import { NumberField } from '@common'
-import { useNoteActions } from '@features/sticky-notes/context/notes/useNotes'
-import { clampRectToBounds } from '@/utils/geometry'
-import { MIN_NOTE_SIZE } from '@features/sticky-notes/model/constants'
-import type { Rect, Size } from '@/types'
-import './Toolbar.css'
+import { useState } from "react"
+import { NumberField } from "@common"
+import { useNoteActions } from "@features/sticky-notes/context/notes/useNotes"
+import { clampRectToBounds } from "@/utils/geometry"
+import { MIN_NOTE_SIZE } from "@features/sticky-notes/model/constants"
+import type { Rect, Size } from "@/types"
+import "./Toolbar.css"
 
 const DEFAULT_DRAFT: Rect = { x: 40, y: 40, width: 220, height: 180 }
 

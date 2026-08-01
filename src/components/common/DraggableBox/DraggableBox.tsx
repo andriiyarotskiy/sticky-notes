@@ -1,24 +1,24 @@
-import { useCallback, useLayoutEffect, useMemo, useRef } from 'react'
-import type { ReactNode } from 'react'
-import { useDraggable } from '@hooks/useDraggable'
-import { useResizable } from '@hooks/useResizable'
+import { useCallback, useLayoutEffect, useMemo, useRef } from "react"
+import type { ReactNode } from "react"
+import { useDraggable } from "@hooks/useDraggable"
+import { useResizable } from "@hooks/useResizable"
 import {
   clampPositionToBounds,
   clampRectToBounds,
   toRect,
-} from '@/utils/geometry'
-import type { Position, Rect, ResizeHandle, Size } from '@/types'
-import './DraggableBox.css'
+} from "@/utils/geometry"
+import type { Position, Rect, ResizeHandle, Size } from "@/types"
+import "./DraggableBox.css"
 
 const ALL_HANDLES: readonly ResizeHandle[] = [
-  'n',
-  's',
-  'e',
-  'w',
-  'ne',
-  'nw',
-  'se',
-  'sw',
+  "n",
+  "s",
+  "e",
+  "w",
+  "ne",
+  "nw",
+  "se",
+  "sw",
 ]
 
 const DEFAULT_MIN_SIZE: Size = { width: 80, height: 60 }
@@ -124,22 +124,22 @@ function DraggableBox({
     const element = elementRef.current
     if (!element || isInteracting) return
 
-    element.style.transform = ''
+    element.style.transform = ""
     element.style.left = `${position.x}px`
     element.style.top = `${position.y}px`
     element.style.width = `${size.width}px`
     element.style.height = `${size.height}px`
   }, [position.x, position.y, size.width, size.height, isInteracting])
 
-  const classNames = ['draggable-box']
-  if (isDragging) classNames.push('draggable-box--dragging')
-  if (isResizing) classNames.push('draggable-box--resizing')
+  const classNames = ["draggable-box"]
+  if (isDragging) classNames.push("draggable-box--dragging")
+  if (isResizing) classNames.push("draggable-box--resizing")
   if (className) classNames.push(className)
 
   return (
     <div
       ref={elementRef}
-      className={classNames.join(' ')}
+      className={classNames.join(" ")}
       style={{ zIndex }}
       onPointerDownCapture={onActivate}
       onPointerDown={onPointerDown}

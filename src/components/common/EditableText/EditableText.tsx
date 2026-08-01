@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from 'react'
-import type { KeyboardEvent, PointerEvent as ReactPointerEvent } from 'react'
-import './EditableText.css'
+import { useEffect, useRef, useState } from "react"
+import type { KeyboardEvent, PointerEvent as ReactPointerEvent } from "react"
+import "./EditableText.css"
 
 const DOUBLE_CLICK_WINDOW_MS = 400
 const DOUBLE_CLICK_RADIUS_PX = 6
@@ -11,7 +11,7 @@ export interface EditableTextProps {
   placeholder?: string
   /** Renders a textarea instead of a single-line input. */
   multiline?: boolean
-  activateOn?: 'click' | 'doubleClick'
+  activateOn?: "click" | "doubleClick"
   className?: string
   disabled?: boolean
 }
@@ -43,7 +43,7 @@ function EditableText({
   onChange,
   placeholder,
   multiline = false,
-  activateOn = 'doubleClick',
+  activateOn = "doubleClick",
   className,
   disabled = false,
 }: EditableTextProps) {
@@ -80,7 +80,7 @@ function EditableText({
   const handlePointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
     if (disabled) return
 
-    if (activateOn === 'click') {
+    if (activateOn === "click") {
       event.stopPropagation()
       pendingActivationRef.current = true
       return
@@ -110,25 +110,25 @@ function EditableText({
   const handleKeyDown = (
     event: KeyboardEvent<HTMLTextAreaElement | HTMLInputElement>,
   ) => {
-    if (event.key === 'Escape') {
+    if (event.key === "Escape") {
       event.preventDefault()
       cancel()
-    } else if (event.key === 'Enter' && (!multiline || !event.shiftKey)) {
+    } else if (event.key === "Enter" && (!multiline || !event.shiftKey)) {
       event.preventDefault()
       commit()
     }
   }
 
   const displayClassName = [
-    'editable-text__display',
-    !value && 'editable-text__display--empty',
+    "editable-text__display",
+    !value && "editable-text__display--empty",
     className,
   ]
     .filter(Boolean)
-    .join(' ')
-  const inputClassName = ['editable-text__input', className]
+    .join(" ")
+  const inputClassName = ["editable-text__input", className]
     .filter(Boolean)
-    .join(' ')
+    .join(" ")
 
   if (isEditing) {
     return multiline ? (
@@ -165,7 +165,7 @@ function EditableText({
       onPointerDown={handlePointerDown}
       onClick={handleClick}
       onKeyDown={(event) => {
-        if (event.key === 'Enter') startEditing()
+        if (event.key === "Enter") startEditing()
       }}
     >
       {value || placeholder}

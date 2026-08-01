@@ -1,16 +1,16 @@
-import { useContext } from 'react'
+import { useContext } from "react"
 import {
   NoteActionsContext,
   NotesStateContext,
   NotesSyncContext,
-} from './context'
-import type { NoteActions, NotesSyncStatus } from './context'
-import type { Note } from '@features/sticky-notes/model/types'
+} from "./context"
+import type { NoteActions, NotesSyncStatus } from "./context"
+import type { Note } from "@features/sticky-notes/model/types"
 
 export function useNotes(): readonly Note[] {
   const notes = useContext(NotesStateContext)
   if (notes === null) {
-    throw new Error('useNotes must be used within a NotesProvider')
+    throw new Error("useNotes must be used within a NotesProvider")
   }
   return notes
 }
@@ -18,7 +18,7 @@ export function useNotes(): readonly Note[] {
 export function useNoteActions(): NoteActions {
   const actions = useContext(NoteActionsContext)
   if (actions === null) {
-    throw new Error('useNoteActions must be used within a NotesProvider')
+    throw new Error("useNoteActions must be used within a NotesProvider")
   }
   return actions
 }
@@ -26,7 +26,7 @@ export function useNoteActions(): NoteActions {
 export function useNotesSyncStatus(): NotesSyncStatus {
   const status = useContext(NotesSyncContext)
   if (status === null) {
-    throw new Error('useNotesSyncStatus must be used within a NotesProvider')
+    throw new Error("useNotesSyncStatus must be used within a NotesProvider")
   }
   return status
 }

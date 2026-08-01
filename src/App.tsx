@@ -1,5 +1,5 @@
-import { StickyNotesBoard } from './features/sticky-notes'
-import './App.css'
+import { StickyNotesBoard } from "./features/sticky-notes"
+import "./App.css"
 
 function App() {
   return (

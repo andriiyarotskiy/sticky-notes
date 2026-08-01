@@ -1,5 +1,5 @@
-import Canvas from './components/Canvas/Canvas'
-import { NotesProvider } from './context/notes/Provider'
+import Canvas from "./components/Canvas/Canvas"
+import { NotesProvider } from "./context/notes/Provider"
 
 function StickyNotesBoard() {
   return (

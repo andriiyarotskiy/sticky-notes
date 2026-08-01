@@ -1,10 +1,13 @@
-import { useCallback, useLayoutEffect, useRef, useState } from 'react'
-import StickyNote from '@features/sticky-notes/components/StickyNote/StickyNote'
-import Toolbar from '@features/sticky-notes/components/Toolbar/Toolbar'
-import TrashZone from '@features/sticky-notes/components/TrashZone/TrashZone'
-import { useNotes, useNotesSyncStatus } from '@features/sticky-notes/context/notes/useNotes'
-import type { Rect, Size } from '@/types'
-import './Canvas.css'
+import { useCallback, useLayoutEffect, useRef, useState } from "react"
+import StickyNote from "@features/sticky-notes/components/StickyNote/StickyNote"
+import Toolbar from "@features/sticky-notes/components/Toolbar/Toolbar"
+import TrashZone from "@features/sticky-notes/components/TrashZone/TrashZone"
+import {
+  useNotes,
+  useNotesSyncStatus,
+} from "@features/sticky-notes/context/notes/useNotes"
+import type { Rect, Size } from "@/types"
+import "./Canvas.css"
 
 /**
  * Workspace shell. It owns the two pieces of layout information the domain

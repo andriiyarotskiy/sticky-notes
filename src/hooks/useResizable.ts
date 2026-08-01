@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
-import type { PointerEvent as ReactPointerEvent, RefObject } from 'react'
-import type { Position, Rect, ResizeHandle, Size } from '@/types'
-import { resizeRect } from '@/utils/geometry'
+import { useCallback, useEffect, useRef, useState } from "react"
+import type { PointerEvent as ReactPointerEvent, RefObject } from "react"
+import type { Position, Rect, ResizeHandle, Size } from "@/types"
+import { resizeRect } from "@/utils/geometry"
 
 export interface UseResizableOptions {
   /** Element that is resized. Its box must already reflect `rect`. */
@@ -125,14 +125,14 @@ export function useResizable({
       }
 
       element.setPointerCapture(event.pointerId)
-      element.addEventListener('pointermove', handleMove)
-      element.addEventListener('pointerup', handleEnd)
-      element.addEventListener('pointercancel', handleEnd)
+      element.addEventListener("pointermove", handleMove)
+      element.addEventListener("pointerup", handleEnd)
+      element.addEventListener("pointercancel", handleEnd)
 
       teardownRef.current = () => {
-        element.removeEventListener('pointermove', handleMove)
-        element.removeEventListener('pointerup', handleEnd)
-        element.removeEventListener('pointercancel', handleEnd)
+        element.removeEventListener("pointermove", handleMove)
+        element.removeEventListener("pointerup", handleEnd)
+        element.removeEventListener("pointercancel", handleEnd)
         if (element.hasPointerCapture(gesture.pointerId)) {
           element.releasePointerCapture(gesture.pointerId)
         }

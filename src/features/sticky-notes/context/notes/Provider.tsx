@@ -1,14 +1,19 @@
-import { useEffect, useMemo, useReducer, useRef, useState } from 'react'
-import type { ReactNode } from 'react'
-import { createNote, deleteNote, fetchNotes, updateNote } from '@features/sticky-notes/api/notesApi'
-import { initialNotesState, notesReducer } from './reducer'
+import { useEffect, useMemo, useReducer, useRef, useState } from "react"
+import type { ReactNode } from "react"
+import {
+  createNote,
+  deleteNote,
+  fetchNotes,
+  updateNote,
+} from "@features/sticky-notes/api/notesApi"
+import { initialNotesState, notesReducer } from "./reducer"
 import {
   NoteActionsContext,
   NotesStateContext,
   NotesSyncContext,
-} from './context'
-import type { NoteActions, NotesSyncStatus } from './context'
-import type { Note } from '@features/sticky-notes/model/types'
+} from "./context"
+import type { NoteActions, NotesSyncStatus } from "./context"
+import type { Note } from "@features/sticky-notes/model/types"
 
 interface NotesProviderProps {
   children: ReactNode
@@ -29,12 +34,12 @@ export function NotesProvider({ children }: NotesProviderProps) {
       .then((notes) => {
         if (cancelled) return
         previousNotesRef.current = notes
-        dispatch({ type: 'notes/hydrated', payload: { notes } })
+        dispatch({ type: "notes/hydrated", payload: { notes } })
       })
       .catch((error: unknown) => {
         if (cancelled) return
-        console.error('Failed to load saved notes.', error)
-        setSyncError('Could not load saved notes.')
+        console.error("Failed to load saved notes.", error)
+        setSyncError("Could not load saved notes.")
       })
     return () => {
       cancelled = true
@@ -60,15 +65,15 @@ export function NotesProvider({ children }: NotesProviderProps) {
 
     for (const note of previous) {
       if (!nextIds.has(note.id)) {
-        void deleteNote(note.id).catch(reportFailure('delete'))
+        void deleteNote(note.id).catch(reportFailure("delete"))
       }
     }
     for (const note of state.notes) {
       const previousNote = previousById.get(note.id)
       if (!previousNote) {
-        void createNote(note).catch(reportFailure('create'))
+        void createNote(note).catch(reportFailure("create"))
       } else if (previousNote !== note) {
-        void updateNote(note.id, note).catch(reportFailure('update'))
+        void updateNote(note.id, note).catch(reportFailure("update"))
       }
     }
 
@@ -79,18 +84,18 @@ export function NotesProvider({ children }: NotesProviderProps) {
   // invalidates consumers of NoteActionsContext.
   const actions = useMemo<NoteActions>(
     () => ({
-      addNote: (rect) => dispatch({ type: 'note/added', payload: { rect } }),
+      addNote: (rect) => dispatch({ type: "note/added", payload: { rect } }),
       moveNote: (id, position) =>
-        dispatch({ type: 'note/moved', payload: { id, position } }),
+        dispatch({ type: "note/moved", payload: { id, position } }),
       resizeNote: (id, rect) =>
-        dispatch({ type: 'note/resized', payload: { id, rect } }),
-      removeNote: (id) => dispatch({ type: 'note/removed', payload: { id } }),
+        dispatch({ type: "note/resized", payload: { id, rect } }),
+      removeNote: (id) => dispatch({ type: "note/removed", payload: { id } }),
       bringNoteToFront: (id) =>
-        dispatch({ type: 'note/broughtToFront', payload: { id } }),
+        dispatch({ type: "note/broughtToFront", payload: { id } }),
       setNoteColor: (id, color) =>
-        dispatch({ type: 'note/colorChanged', payload: { id, color } }),
+        dispatch({ type: "note/colorChanged", payload: { id, color } }),
       setNoteText: (id, text) =>
-        dispatch({ type: 'note/textChanged', payload: { id, text } }),
+        dispatch({ type: "note/textChanged", payload: { id, text } }),
     }),
     [],
   )

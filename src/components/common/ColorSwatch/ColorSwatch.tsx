@@ -1,4 +1,4 @@
-import './ColorSwatch.css'
+import "./ColorSwatch.css"
 
 export interface ColorSwatchProps {
   colors: readonly string[]
@@ -18,7 +18,7 @@ export interface ColorSwatchProps {
 function ColorSwatch({ colors, value, onChange, className }: ColorSwatchProps) {
   return (
     <div
-      className={['color-swatch', className].filter(Boolean).join(' ')}
+      className={["color-swatch", className].filter(Boolean).join(" ")}
       role="radiogroup"
       aria-label="Color"
     >

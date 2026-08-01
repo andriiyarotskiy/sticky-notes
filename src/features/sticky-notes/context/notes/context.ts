@@ -1,6 +1,6 @@
-import { createContext } from 'react'
-import type { Note } from '@features/sticky-notes/model/types'
-import type { Position, Rect } from '@/types'
+import { createContext } from "react"
+import type { Note } from "@features/sticky-notes/model/types"
+import type { Position, Rect } from "@/types"
 
 export interface NoteActions {
   addNote: (rect: Rect) => void

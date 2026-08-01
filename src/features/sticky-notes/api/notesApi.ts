@@ -1,6 +1,6 @@
-import type { Note } from '@features/sticky-notes/model/types'
+import type { Note } from "@features/sticky-notes/model/types"
 
-const STORAGE_KEY = 'sticky-notes/notes:v1'
+const STORAGE_KEY = "sticky-notes/notes:v1"
 const SIMULATED_LATENCY_MS = 200
 
 function readStore(): Note[] {
@@ -11,7 +11,7 @@ function readStore(): Note[] {
   } catch (error) {
     // Corrupted or foreign data under this key is a boundary condition, not a
     // bug in this app — fall back to an empty store rather than crashing.
-    console.warn('Ignoring unreadable persisted notes.', error)
+    console.warn("Ignoring unreadable persisted notes.", error)
     return []
   }
 }
