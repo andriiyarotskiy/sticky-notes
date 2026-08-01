@@ -3,9 +3,9 @@ import {
   NoteActionsContext,
   NotesStateContext,
   NotesSyncContext,
-} from './notesContext'
-import type { NoteActions, NotesSyncStatus } from './notesContext'
-import type { Note } from '../types'
+} from './context'
+import type { NoteActions, NotesSyncStatus } from './context'
+import type { Note } from '../../model/types'
 
 export function useNotes(): readonly Note[] {
   const notes = useContext(NotesStateContext)

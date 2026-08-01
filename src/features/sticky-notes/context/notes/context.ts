@@ -1,5 +1,6 @@
 import { createContext } from 'react'
-import type { Note, Position, Rect } from '../types'
+import type { Note } from '../../model/types'
+import type { Position, Rect } from '../../../../types'
 
 export interface NoteActions {
   addNote: (rect: Rect) => void

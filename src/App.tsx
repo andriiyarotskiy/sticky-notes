@@ -1,14 +1,11 @@
-import Canvas from './components/notes/Canvas'
-import { NotesProvider } from './context/NotesProvider'
+import { StickyNotesBoard } from './features/sticky-notes'
 import './App.css'
 
 function App() {
   return (
-    <NotesProvider>
-      <div className="app">
-        <Canvas />
-      </div>
-    </NotesProvider>
+    <div className="app">
+      <StickyNotesBoard />
+    </div>
   )
 }
 

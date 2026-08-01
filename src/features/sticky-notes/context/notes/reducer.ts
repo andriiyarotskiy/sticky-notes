@@ -1,5 +1,6 @@
-import { NOTE_COLORS } from '../components/notes/noteConstants'
-import type { Note, Position, Rect } from '../types'
+import { NOTE_COLORS } from '../../model/constants'
+import type { Note } from '../../model/types'
+import type { Position, Rect } from '../../../../types'
 
 export interface NotesState {
   notes: Note[]

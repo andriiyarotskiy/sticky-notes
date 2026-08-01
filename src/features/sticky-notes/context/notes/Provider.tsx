@@ -1,14 +1,14 @@
 import { useEffect, useMemo, useReducer, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
-import { createNote, deleteNote, fetchNotes, updateNote } from '../api/notesApi'
-import { initialNotesState, notesReducer } from './notesReducer'
+import { createNote, deleteNote, fetchNotes, updateNote } from '../../api/notesApi'
+import { initialNotesState, notesReducer } from './reducer'
 import {
   NoteActionsContext,
   NotesStateContext,
   NotesSyncContext,
-} from './notesContext'
-import type { NoteActions, NotesSyncStatus } from './notesContext'
-import type { Note } from '../types'
+} from './context'
+import type { NoteActions, NotesSyncStatus } from './context'
+import type { Note } from '../../model/types'
 
 interface NotesProviderProps {
   children: ReactNode

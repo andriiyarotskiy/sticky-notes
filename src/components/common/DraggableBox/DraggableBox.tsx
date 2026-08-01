@@ -1,13 +1,13 @@
 import { useCallback, useLayoutEffect, useMemo, useRef } from 'react'
 import type { ReactNode } from 'react'
-import { useDraggable } from '../../hooks/useDraggable'
-import { useResizable } from '../../hooks/useResizable'
+import { useDraggable } from '../../../hooks/useDraggable'
+import { useResizable } from '../../../hooks/useResizable'
 import {
   clampPositionToBounds,
   clampRectToBounds,
   toRect,
-} from '../../utils/geometry'
-import type { Position, Rect, ResizeHandle, Size } from '../../types'
+} from '../../../utils/geometry'
+import type { Position, Rect, ResizeHandle, Size } from '../../../types'
 import './DraggableBox.css'
 
 const ALL_HANDLES: readonly ResizeHandle[] = [

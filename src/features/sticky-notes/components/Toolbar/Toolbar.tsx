@@ -1,9 +1,9 @@
 import { useState } from 'react'
-import NumberField from '../ui/NumberField'
-import { useNoteActions } from '../../context/useNotes'
-import { clampRectToBounds } from '../../utils/geometry'
-import { MIN_NOTE_SIZE } from './noteConstants'
-import type { Rect, Size } from '../../types'
+import { NumberField } from '../../../../components/common'
+import { useNoteActions } from '../../context/notes/useNotes'
+import { clampRectToBounds } from '../../../../utils/geometry'
+import { MIN_NOTE_SIZE } from '../../model/constants'
+import type { Rect, Size } from '../../../../types'
 import './Toolbar.css'
 
 const DEFAULT_DRAFT: Rect = { x: 40, y: 40, width: 220, height: 180 }
