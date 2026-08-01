@@ -1,10 +1,10 @@
 import { memo, useCallback, useMemo, useRef } from 'react'
-import { DraggableBox, ColorSwatch, EditableText } from '../../../../components/common'
-import { useNoteActions } from '../../context/notes/useNotes'
-import { rectsIntersect } from '../../../../utils/geometry'
-import { MIN_NOTE_SIZE, NOTE_COLORS } from '../../model/constants'
-import type { Note } from '../../model/types'
-import type { Position, Rect, Size } from '../../../../types'
+import { DraggableBox, ColorSwatch, EditableText } from '@common'
+import { useNoteActions } from '@features/sticky-notes/context/notes/useNotes'
+import { rectsIntersect } from '@/utils/geometry'
+import { MIN_NOTE_SIZE, NOTE_COLORS } from '@features/sticky-notes/model/constants'
+import type { Note } from '@features/sticky-notes/model/types'
+import type { Position, Rect, Size } from '@/types'
 import './StickyNote.css'
 
 interface StickyNoteProps {

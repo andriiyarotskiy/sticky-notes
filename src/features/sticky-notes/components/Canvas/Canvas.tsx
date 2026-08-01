@@ -2,8 +2,8 @@ import { useCallback, useLayoutEffect, useRef, useState } from 'react'
 import StickyNote from '../StickyNote/StickyNote'
 import Toolbar from '../Toolbar/Toolbar'
 import TrashZone from '../TrashZone/TrashZone'
-import { useNotes, useNotesSyncStatus } from '../../context/notes/useNotes'
-import type { Rect, Size } from '../../../../types'
+import { useNotes, useNotesSyncStatus } from '@features/sticky-notes/context/notes/useNotes'
+import type { Rect, Size } from '@/types'
 import './Canvas.css'
 
 /**

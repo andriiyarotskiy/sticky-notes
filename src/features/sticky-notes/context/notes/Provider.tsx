@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useReducer, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
-import { createNote, deleteNote, fetchNotes, updateNote } from '../../api/notesApi'
+import { createNote, deleteNote, fetchNotes, updateNote } from '@features/sticky-notes/api/notesApi'
 import { initialNotesState, notesReducer } from './reducer'
 import {
   NoteActionsContext,
@@ -8,7 +8,7 @@ import {
   NotesSyncContext,
 } from './context'
 import type { NoteActions, NotesSyncStatus } from './context'
-import type { Note } from '../../model/types'
+import type { Note } from '@features/sticky-notes/model/types'
 
 interface NotesProviderProps {
   children: ReactNode

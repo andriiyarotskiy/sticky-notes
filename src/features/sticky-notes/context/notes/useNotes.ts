@@ -5,7 +5,7 @@ import {
   NotesSyncContext,
 } from './context'
 import type { NoteActions, NotesSyncStatus } from './context'
-import type { Note } from '../../model/types'
+import type { Note } from '@features/sticky-notes/model/types'
 
 export function useNotes(): readonly Note[] {
   const notes = useContext(NotesStateContext)
