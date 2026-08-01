@@ -1,3 +1,4 @@
-// Placeholder for generic, reusable UI primitives (e.g. Button, IconButton).
-// Implementation added in a later iteration.
-export {}
+export { default as DraggableBox } from './DraggableBox'
+export type { DraggableBoxProps } from './DraggableBox'
+export { default as NumberField } from './NumberField'
+export type { NumberFieldProps } from './NumberField'

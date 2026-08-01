@@ -1,0 +1,39 @@
+.trash-zone {
+  position: absolute;
+  right: 24px;
+  bottom: 24px;
+  width: 200px;
+  height: 140px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 2px dashed #cbd5e1;
+  border-radius: 10px;
+  background: rgba(248, 250, 252, 0.85);
+  color: #94a3b8;
+  /* Notes are dragged over this zone, so it must never swallow pointer events. */
+  pointer-events: none;
+  transition:
+    border-color 120ms ease,
+    background-color 120ms ease,
+    color 120ms ease;
+}
+
+.trash-zone--active {
+  border-color: #dc2626;
+  background: rgba(254, 226, 226, 0.9);
+  color: #dc2626;
+}
+
+.trash-zone__icon {
+  width: 34px;
+  height: 34px;
+}
+
+.trash-zone__label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}

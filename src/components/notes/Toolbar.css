@@ -1,0 +1,48 @@
+.toolbar {
+  display: flex;
+  align-items: flex-end;
+  gap: 20px;
+  padding: 12px 20px;
+  background: #f8fafc;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.toolbar__title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0f172a;
+  padding-bottom: 7px;
+}
+
+.toolbar__fields {
+  display: flex;
+  gap: 10px;
+}
+
+.toolbar__button {
+  padding: 7px 16px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  background: #4f46e5;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.toolbar__button:hover {
+  background: #4338ca;
+}
+
+.toolbar__button:focus-visible {
+  outline: 2px solid #4f46e5;
+  outline-offset: 2px;
+}
+
+.toolbar__hint {
+  margin-left: auto;
+  padding-bottom: 7px;
+  font-size: 12px;
+  color: #94a3b8;
+}

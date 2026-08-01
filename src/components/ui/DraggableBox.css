@@ -1,0 +1,77 @@
+.draggable-box {
+  position: absolute;
+  /* Pointer Events only work reliably for dragging when the browser is not
+     also panning/scrolling the surface. */
+  touch-action: none;
+  user-select: none;
+  cursor: grab;
+}
+
+.draggable-box--dragging {
+  cursor: grabbing;
+}
+
+.draggable-box__handle {
+  position: absolute;
+  /* Grips sit slightly outside the box so thin edges stay easy to grab. */
+  --grip: 10px;
+  --edge: 6px;
+}
+
+.draggable-box__handle--n,
+.draggable-box__handle--s {
+  left: var(--grip);
+  right: var(--grip);
+  height: var(--edge);
+  cursor: ns-resize;
+}
+
+.draggable-box__handle--e,
+.draggable-box__handle--w {
+  top: var(--grip);
+  bottom: var(--grip);
+  width: var(--edge);
+  cursor: ew-resize;
+}
+
+.draggable-box__handle--n {
+  top: calc(var(--edge) / -2);
+}
+.draggable-box__handle--s {
+  bottom: calc(var(--edge) / -2);
+}
+.draggable-box__handle--e {
+  right: calc(var(--edge) / -2);
+}
+.draggable-box__handle--w {
+  left: calc(var(--edge) / -2);
+}
+
+.draggable-box__handle--ne,
+.draggable-box__handle--nw,
+.draggable-box__handle--se,
+.draggable-box__handle--sw {
+  width: var(--grip);
+  height: var(--grip);
+}
+
+.draggable-box__handle--nw {
+  top: calc(var(--grip) / -2);
+  left: calc(var(--grip) / -2);
+  cursor: nwse-resize;
+}
+.draggable-box__handle--ne {
+  top: calc(var(--grip) / -2);
+  right: calc(var(--grip) / -2);
+  cursor: nesw-resize;
+}
+.draggable-box__handle--se {
+  bottom: calc(var(--grip) / -2);
+  right: calc(var(--grip) / -2);
+  cursor: nwse-resize;
+}
+.draggable-box__handle--sw {
+  bottom: calc(var(--grip) / -2);
+  left: calc(var(--grip) / -2);
+  cursor: nesw-resize;
+}

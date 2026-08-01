@@ -1,0 +1,14 @@
+.canvas {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.canvas__surface {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+  background-color: #f1f5f9;
+  background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+  background-size: 24px 24px;
+}
