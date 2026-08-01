@@ -2,7 +2,7 @@ import { useCallback, useLayoutEffect, useRef, useState } from 'react'
 import StickyNote from './StickyNote'
 import Toolbar from './Toolbar'
 import TrashZone from './TrashZone'
-import { useNotes } from '../../context/useNotes'
+import { useNotes, useNotesSyncStatus } from '../../context/useNotes'
 import type { Rect, Size } from '../../types'
 import './Canvas.css'
 
@@ -13,6 +13,7 @@ import './Canvas.css'
  */
 function Canvas() {
   const notes = useNotes()
+  const { error: syncError, dismissError } = useNotesSyncStatus()
   const surfaceRef = useRef<HTMLDivElement>(null)
   const trashRef = useRef<HTMLDivElement>(null)
 
@@ -84,6 +85,15 @@ function Canvas() {
 
         <TrashZone zoneRef={trashRef} isActive={trashHoverNoteId !== null} />
       </div>
+
+      {syncError !== null && (
+        <div className="canvas__sync-error" role="alert">
+          <span>{syncError}</span>
+          <button type="button" onClick={dismissError}>
+            Dismiss
+          </button>
+        </div>
+      )}
     </div>
   )
 }

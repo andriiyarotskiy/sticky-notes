@@ -1,13 +1,5 @@
+import { NOTE_COLORS } from '../components/notes/noteConstants'
 import type { Note, Position, Rect } from '../types'
-
-export const NOTE_COLORS: readonly string[] = [
-  '#fef08a',
-  '#bbf7d0',
-  '#bfdbfe',
-  '#fbcfe8',
-  '#fed7aa',
-  '#ddd6fe',
-]
 
 export interface NotesState {
   notes: Note[]
@@ -16,11 +8,14 @@ export interface NotesState {
 }
 
 export type NotesAction =
+  | { type: 'notes/hydrated'; payload: { notes: Note[] } }
   | { type: 'note/added'; payload: { rect: Rect } }
   | { type: 'note/moved'; payload: { id: string; position: Position } }
   | { type: 'note/resized'; payload: { id: string; rect: Rect } }
   | { type: 'note/removed'; payload: { id: string } }
   | { type: 'note/broughtToFront'; payload: { id: string } }
+  | { type: 'note/colorChanged'; payload: { id: string; color: string } }
+  | { type: 'note/textChanged'; payload: { id: string; text: string } }
 
 export const initialNotesState: NotesState = {
   notes: [],
@@ -28,17 +23,32 @@ export const initialNotesState: NotesState = {
   topZIndex: 0,
 }
 
+const NOTE_ID_PATTERN = /^note-(\d+)$/
+
 export function notesReducer(
   state: NotesState,
   action: NotesAction,
 ): NotesState {
   switch (action.type) {
+    case 'notes/hydrated': {
+      const { notes } = action.payload
+      let maxNumericId = 0
+      let topZIndex = 0
+      for (const note of notes) {
+        const match = NOTE_ID_PATTERN.exec(note.id)
+        if (match) maxNumericId = Math.max(maxNumericId, Number(match[1]))
+        topZIndex = Math.max(topZIndex, note.zIndex)
+      }
+      return { notes, nextId: maxNumericId + 1, topZIndex }
+    }
+
     case 'note/added': {
       const zIndex = state.topZIndex + 1
       const note: Note = {
         ...action.payload.rect,
         id: `note-${state.nextId}`,
         color: NOTE_COLORS[(state.nextId - 1) % NOTE_COLORS.length],
+        text: '',
         zIndex,
       }
       return {
@@ -106,6 +116,30 @@ export function notesReducer(
         topZIndex: zIndex,
         notes: state.notes.map((candidate) =>
           candidate.id === id ? { ...candidate, zIndex } : candidate,
+        ),
+      }
+    }
+
+    case 'note/colorChanged': {
+      const { id, color } = action.payload
+      const note = state.notes.find((candidate) => candidate.id === id)
+      if (!note || note.color === color) return state
+      return {
+        ...state,
+        notes: state.notes.map((candidate) =>
+          candidate.id === id ? { ...candidate, color } : candidate,
+        ),
+      }
+    }
+
+    case 'note/textChanged': {
+      const { id, text } = action.payload
+      const note = state.notes.find((candidate) => candidate.id === id)
+      if (!note || note.text === text) return state
+      return {
+        ...state,
+        notes: state.notes.map((candidate) =>
+          candidate.id === id ? { ...candidate, text } : candidate,
         ),
       }
     }

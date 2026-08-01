@@ -7,6 +7,14 @@ export interface NoteActions {
   resizeNote: (id: string, rect: Rect) => void
   removeNote: (id: string) => void
   bringNoteToFront: (id: string) => void
+  setNoteColor: (id: string, color: string) => void
+  setNoteText: (id: string, text: string) => void
+}
+
+export interface NotesSyncStatus {
+  /** Message from the most recent failed background save, or null if clean. */
+  error: string | null
+  dismissError: () => void
 }
 
 /**
@@ -16,3 +24,4 @@ export interface NoteActions {
  */
 export const NotesStateContext = createContext<readonly Note[] | null>(null)
 export const NoteActionsContext = createContext<NoteActions | null>(null)
+export const NotesSyncContext = createContext<NotesSyncStatus | null>(null)

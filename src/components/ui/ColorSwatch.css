@@ -1,0 +1,17 @@
+.color-swatch {
+  display: flex;
+  gap: 5px;
+}
+
+.color-swatch__option {
+  width: 14px;
+  height: 14px;
+  padding: 0;
+  border: 1px solid rgba(15, 23, 42, 0.15);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.color-swatch__option[data-selected] {
+  box-shadow: 0 0 0 2px rgba(15, 23, 42, 0.55);
+}

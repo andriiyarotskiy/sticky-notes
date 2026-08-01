@@ -16,5 +16,6 @@ export type ResizeHandle = 'n' | 's' | 'e' | 'w' | 'ne' | 'nw' | 'se' | 'sw'
 export interface Note extends Rect {
   id: string
   color: string
+  text: string
   zIndex: number
 }

@@ -1,0 +1,26 @@
+.editable-text__display {
+  cursor: text;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  overflow-y: auto;
+}
+
+.editable-text__display--empty {
+  color: rgba(15, 23, 42, 0.4);
+}
+
+.editable-text__input {
+  display: block;
+  width: 100%;
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: none;
+  outline: none;
+  resize: none;
+}
+
+textarea.editable-text__input {
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+}

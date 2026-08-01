@@ -1,6 +1,10 @@
 import { useContext } from 'react'
-import { NoteActionsContext, NotesStateContext } from './notesContext'
-import type { NoteActions } from './notesContext'
+import {
+  NoteActionsContext,
+  NotesStateContext,
+  NotesSyncContext,
+} from './notesContext'
+import type { NoteActions, NotesSyncStatus } from './notesContext'
 import type { Note } from '../types'
 
 export function useNotes(): readonly Note[] {
@@ -17,4 +21,12 @@ export function useNoteActions(): NoteActions {
     throw new Error('useNoteActions must be used within a NotesProvider')
   }
   return actions
+}
+
+export function useNotesSyncStatus(): NotesSyncStatus {
+  const status = useContext(NotesSyncContext)
+  if (status === null) {
+    throw new Error('useNotesSyncStatus must be used within a NotesProvider')
+  }
+  return status
 }

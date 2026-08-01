@@ -1,8 +1,10 @@
 import { memo, useCallback, useMemo, useRef } from 'react'
 import DraggableBox from '../ui/DraggableBox'
+import ColorSwatch from '../ui/ColorSwatch'
+import EditableText from '../ui/EditableText'
 import { useNoteActions } from '../../context/useNotes'
 import { rectsIntersect } from '../../utils/geometry'
-import { MIN_NOTE_SIZE } from './noteConstants'
+import { MIN_NOTE_SIZE, NOTE_COLORS } from './noteConstants'
 import type { Note, Position, Rect, Size } from '../../types'
 import './StickyNote.css'
 
@@ -27,8 +29,14 @@ function StickyNote({
   onTrashHoverChange,
   isOverTrash,
 }: StickyNoteProps) {
-  const { moveNote, resizeNote, removeNote, bringNoteToFront } =
-    useNoteActions()
+  const {
+    moveNote,
+    resizeNote,
+    removeNote,
+    bringNoteToFront,
+    setNoteColor,
+    setNoteText,
+  } = useNoteActions()
 
   const position = useMemo<Position>(
     () => ({ x: note.x, y: note.y }),
@@ -102,6 +110,16 @@ function StickyNote({
     [note.id, bringNoteToFront],
   )
 
+  const handleColorChange = useCallback(
+    (color: string) => setNoteColor(note.id, color),
+    [note.id, setNoteColor],
+  )
+
+  const handleTextChange = useCallback(
+    (text: string) => setNoteText(note.id, text),
+    [note.id, setNoteText],
+  )
+
   return (
     <DraggableBox
       position={position}
@@ -119,7 +137,21 @@ function StickyNote({
       <div
         className="sticky-note__paper"
         style={{ backgroundColor: note.color }}
-      />
+      >
+        <ColorSwatch
+          className="sticky-note__colors"
+          colors={NOTE_COLORS}
+          value={note.color}
+          onChange={handleColorChange}
+        />
+        <EditableText
+          className="sticky-note__text"
+          value={note.text}
+          onChange={handleTextChange}
+          placeholder="Type a note…"
+          multiline
+        />
+      </div>
     </DraggableBox>
   )
 }
