@@ -1,4 +1,4 @@
-import type { Position, Rect, ResizeHandle, Size } from '../types'
+import type { Position, Rect, ResizeHandle, Size } from '@/types'
 
 /**
  * Pure geometry helpers. Deliberately free of React and of any notion of

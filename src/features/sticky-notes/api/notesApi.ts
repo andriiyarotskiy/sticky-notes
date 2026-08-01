@@ -1,4 +1,4 @@
-import type { Note } from '../model/types'
+import type { Note } from '@features/sticky-notes/model/types'
 
 const STORAGE_KEY = 'sticky-notes/notes:v1'
 const SIMULATED_LATENCY_MS = 200

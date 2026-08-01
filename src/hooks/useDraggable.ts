@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import type { PointerEvent as ReactPointerEvent, RefObject } from 'react'
-import type { Position } from '../types'
+import type { Position } from '@/types'
 
 export interface UseDraggableOptions {
   /** Element that is moved. Its `left`/`top` must already reflect `position`. */
