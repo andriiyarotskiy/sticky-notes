@@ -9,27 +9,27 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  border: 2px dashed #cbd5e1;
+  border: 2px dashed rgba(241, 236, 224, 0.3);
   border-radius: 10px;
-  background: rgba(248, 250, 252, 0.85);
-  color: #94a3b8;
+  background: rgba(241, 236, 224, 0.08);
+  color: var(--parchment-dim);
   /* Notes are dragged over this zone, so it must never swallow pointer events. */
   pointer-events: none;
   transition:
-    border-color 120ms ease,
-    background-color 120ms ease,
-    color 120ms ease;
+    border-color 150ms ease,
+    background-color 150ms ease,
+    color 150ms ease;
 }
 
 .trash-zone--active {
-  border-color: #dc2626;
-  background: rgba(254, 226, 226, 0.9);
-  color: #dc2626;
+  border-color: var(--pencil);
+  background: var(--parchment);
+  color: var(--pencil);
 }
 
 .trash-zone__icon {
-  width: 34px;
-  height: 34px;
+  width: 32px;
+  height: 32px;
 }
 
 .trash-zone__label {

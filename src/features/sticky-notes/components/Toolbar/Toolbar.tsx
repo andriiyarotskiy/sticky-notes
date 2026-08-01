@@ -63,7 +63,8 @@ function Toolbar({ bounds }: ToolbarProps) {
       </button>
 
       <span className="toolbar__hint">
-        Drag to move · pull the edges to resize · drop on the trash to delete
+        Double-click a note to write · drag to move · pull the edges to
+        resize · drop on the trash to delete
       </span>
     </div>
   )

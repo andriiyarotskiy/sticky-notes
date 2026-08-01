@@ -162,6 +162,13 @@ function EditableText({
       className={displayClassName}
       role="button"
       tabIndex={disabled ? -1 : 0}
+      title={
+        disabled
+          ? undefined
+          : activateOn === "doubleClick"
+            ? "Double-click to edit"
+            : "Click to edit"
+      }
       onPointerDown={handlePointerDown}
       onClick={handleClick}
       onKeyDown={(event) => {

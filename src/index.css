@@ -1,5 +1,38 @@
 :root {
   color-scheme: light;
+
+  /* Cutting-mat canvas: a deep, measured surface that makes colored paper
+     read clearly, rather than a generic light gray app background. */
+  --mat: #1e2e29;
+  --mat-line: #2a3f38;
+  --mat-line-strong: #3c5850;
+
+  /* Toolbar / chrome rail — darker than the mat, like the edge of a desk. */
+  --rail: #15211d;
+  --rail-border: #0e1613;
+
+  /* Light "paper" surfaces: notes, trays, and cards floating on the mat. */
+  --parchment: #f1ece0;
+  --parchment-dim: rgba(241, 236, 222, 0.58);
+  --ink: #211d15;
+  --ink-soft: rgba(33, 29, 21, 0.5);
+  --ink-faint: rgba(33, 29, 21, 0.32);
+
+  /* Brass hardware accent — pushpins, grommets — for primary actions. */
+  --brass: #d3a24c;
+  --brass-hover: #e0b164;
+  --brass-active: #b3862f;
+  --brass-ink: #4a3417;
+
+  /* Red-pencil accent — drafting markup — for destructive state. */
+  --pencil: #c1442e;
+  --pencil-hover: #a8371f;
+
+  --font-body:
+    system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: ui-rounded, "SF Pro Rounded", "Segoe UI", var(--font-body);
+  --font-mono:
+    ui-monospace, "SF Mono", "Cascadia Code", "Roboto Mono", monospace;
 }
 
 * {
@@ -14,10 +47,14 @@ body,
 }
 
 body {
-  font-family:
-    system-ui,
-    -apple-system,
-    "Segoe UI",
-    Roboto,
-    sans-serif;
+  font-family: var(--font-body);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
 }

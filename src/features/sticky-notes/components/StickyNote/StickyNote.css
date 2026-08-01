@@ -1,28 +1,73 @@
 .sticky-note__paper {
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
   width: 100%;
   height: 100%;
-  padding: 8px;
-  border-radius: 2px;
+  padding: 10px;
+  overflow: hidden;
+  border-radius: 3px;
   box-shadow:
-    0 1px 2px rgba(15, 23, 42, 0.16),
-    0 6px 14px rgba(15, 23, 42, 0.12);
-  transition: box-shadow 120ms ease;
+    0 1px 2px rgba(0, 0, 0, 0.28),
+    0 6px 16px rgba(0, 0, 0, 0.32);
+  transition:
+    box-shadow 150ms ease,
+    transform 150ms ease;
 }
 
-.draggable-box--dragging .sticky-note__paper,
+/* Signature detail: a curled corner, like a real Post-it's top edge lifting
+   off the pad. It grows on hover and further on drag, doubling as the
+   affordance that the note can be picked up. */
+.sticky-note__paper::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 16px;
+  height: 16px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.5) 0%,
+    rgba(255, 255, 255, 0.5) 48%,
+    rgba(0, 0, 0, 0.18) 50%,
+    rgba(0, 0, 0, 0.05) 100%
+  );
+  clip-path: polygon(100% 0, 0 0, 100% 100%);
+  transition:
+    width 160ms ease,
+    height 160ms ease;
+  pointer-events: none;
+}
+
+.sticky-note:hover .sticky-note__paper::before {
+  width: 22px;
+  height: 22px;
+}
+
+.draggable-box--dragging .sticky-note__paper::before {
+  width: 30px;
+  height: 30px;
+}
+
+.draggable-box--dragging .sticky-note__paper {
+  transform: rotate(-1.5deg);
+  box-shadow:
+    0 3px 6px rgba(0, 0, 0, 0.32),
+    0 18px 32px rgba(0, 0, 0, 0.38);
+}
+
 .draggable-box--resizing .sticky-note__paper {
   box-shadow:
-    0 2px 4px rgba(15, 23, 42, 0.2),
-    0 14px 28px rgba(15, 23, 42, 0.18);
+    0 2px 4px rgba(0, 0, 0, 0.3),
+    0 14px 28px rgba(0, 0, 0, 0.34);
 }
 
 .sticky-note--over-trash .sticky-note__paper {
-  opacity: 0.55;
-  outline: 2px dashed #dc2626;
-  outline-offset: 2px;
+  opacity: 0.6;
+  transform: scale(0.94);
+  outline: 2px dashed var(--pencil);
+  outline-offset: 3px;
 }
 
 .sticky-note__colors {
@@ -33,6 +78,6 @@
   flex: 1 1 auto;
   min-height: 0;
   font-size: 13px;
-  line-height: 1.4;
-  color: #1e293b;
+  line-height: 1.5;
+  color: var(--ink);
 }

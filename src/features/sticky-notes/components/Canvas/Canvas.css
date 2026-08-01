@@ -9,9 +9,19 @@
   position: relative;
   flex: 1;
   overflow: hidden;
-  background-color: #f1f5f9;
-  background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
-  background-size: 24px 24px;
+  background-color: var(--mat);
+  /* A cutting-mat grid: a fine 24px ruling with a bolder line every five
+     cells, echoing the measured surface notes are precisely placed on. */
+  background-image:
+    linear-gradient(var(--mat-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--mat-line) 1px, transparent 1px),
+    linear-gradient(var(--mat-line-strong) 1px, transparent 1px),
+    linear-gradient(90deg, var(--mat-line-strong) 1px, transparent 1px);
+  background-size:
+    24px 24px,
+    24px 24px,
+    120px 120px,
+    120px 120px;
 }
 
 .canvas__sync-error {
@@ -24,11 +34,11 @@
   gap: 12px;
   padding: 10px 16px;
   font-size: 13px;
-  color: #7f1d1d;
-  background: #fee2e2;
-  border: 1px solid #fecaca;
+  color: var(--pencil);
+  background: var(--parchment);
+  border: 1px solid rgba(193, 68, 46, 0.35);
   border-radius: 8px;
-  box-shadow: 0 6px 16px rgba(127, 29, 29, 0.15);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
 }
 
 .canvas__sync-error button {
@@ -36,9 +46,18 @@
   font: inherit;
   font-size: 12px;
   font-weight: 600;
-  color: #7f1d1d;
+  color: var(--pencil);
   background: #fff;
-  border: 1px solid #fecaca;
+  border: 1px solid rgba(193, 68, 46, 0.35);
   border-radius: 6px;
   cursor: pointer;
+}
+
+.canvas__sync-error button:hover {
+  background: #fff5f3;
+}
+
+.canvas__sync-error button:focus-visible {
+  outline: 2px solid var(--pencil);
+  outline-offset: 2px;
 }

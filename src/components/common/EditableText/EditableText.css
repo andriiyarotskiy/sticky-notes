@@ -3,17 +3,31 @@
   white-space: pre-wrap;
   overflow-wrap: break-word;
   overflow-y: auto;
+  border-radius: 2px;
 }
 
 .editable-text__display--empty {
-  color: rgba(15, 23, 42, 0.4);
+  color: var(--ink-faint);
+  font-style: italic;
+}
+
+.editable-text__display:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
 }
 
 .editable-text__input {
   display: block;
   width: 100%;
-  font: inherit;
-  color: inherit;
+  margin: 0;
+  padding: 0;
+  /* Font-family only: font-size/line-height/color are left for the caller's
+     own className to set (e.g. sticky-note__text) — matching what the idle
+     display picks up from the very same class. A `font: inherit` shorthand
+     here would compete with that className at equal specificity, so which
+     one wins would depend on unrelated CSS import order and could make the
+     textarea render at a different size than the idle text it replaces. */
+  font-family: inherit;
   background: transparent;
   border: none;
   outline: none;
