@@ -1,4 +1,5 @@
-import { useId } from "react"
+import { useId, useState } from "react"
+import type { KeyboardEvent } from "react"
 import "./NumberField.css"
 
 export interface NumberFieldProps {
@@ -10,7 +11,13 @@ export interface NumberFieldProps {
   step?: number
 }
 
-/** Generic labelled numeric input. */
+/**
+ * Generic labelled numeric input. Keeps its own draft text while the user is
+ * typing — an empty or half-typed value (e.g. "-", "") is not a number and
+ * must not be coerced into one — and only commits a clamped, finite value to
+ * `onChange` on blur or Enter. An invalid draft reverts to the last committed
+ * value, the same commit/cancel shape `EditableText` uses.
+ */
 function NumberField({
   label,
   value,
@@ -20,6 +27,36 @@ function NumberField({
   step,
 }: NumberFieldProps) {
   const id = useId()
+  const [draft, setDraft] = useState(String(value))
+
+  // Resets the draft when `value` changes for reasons other than this field's
+  // own commit (e.g. the caller clamping it elsewhere) — adjusted during
+  // render, per React's guidance, rather than in an effect, so the stale
+  // draft never has a chance to paint first.
+  const [lastValue, setLastValue] = useState(value)
+  if (value !== lastValue) {
+    setLastValue(value)
+    setDraft(String(value))
+  }
+
+  const commit = () => {
+    const parsed = Number(draft)
+    if (draft.trim() === "" || !Number.isFinite(parsed)) {
+      setDraft(String(value))
+      return
+    }
+
+    let clamped = parsed
+    if (min !== undefined) clamped = Math.max(clamped, min)
+    if (max !== undefined) clamped = Math.min(clamped, max)
+
+    setDraft(String(clamped))
+    if (clamped !== value) onChange(clamped)
+  }
+
+  const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") event.currentTarget.blur()
+  }
 
   return (
     <div className="number-field">
@@ -30,16 +67,13 @@ function NumberField({
         id={id}
         className="number-field__input"
         type="number"
-        value={value}
+        value={draft}
         min={min}
         max={max}
         step={step}
-        onChange={(event) => {
-          const next = Number(event.target.value)
-          // An empty or half-typed input parses to NaN; ignore it and keep the
-          // last valid value rather than pushing NaN into state.
-          if (Number.isFinite(next)) onChange(next)
-        }}
+        onChange={(event) => setDraft(event.target.value)}
+        onBlur={commit}
+        onKeyDown={handleKeyDown}
       />
     </div>
   )

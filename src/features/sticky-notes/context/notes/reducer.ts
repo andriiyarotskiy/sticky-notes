@@ -26,6 +26,46 @@ export const initialNotesState: NotesState = {
 
 const NOTE_ID_PATTERN = /^note-(\d+)$/
 
+function findNote(notes: readonly Note[], id: string): Note | undefined {
+  return notes.find((candidate) => candidate.id === id)
+}
+
+function areNotesEqual(a: Note, b: Note): boolean {
+  return (
+    a.x === b.x &&
+    a.y === b.y &&
+    a.width === b.width &&
+    a.height === b.height &&
+    a.color === b.color &&
+    a.text === b.text &&
+    a.zIndex === b.zIndex
+  )
+}
+
+/**
+ * Finds the note by id and replaces it with `updater`'s result, bailing out
+ * (returning the same `state` reference) if the note is missing or the
+ * update is a no-op — shared by every action that patches a single note.
+ */
+function updateNote(
+  state: NotesState,
+  id: string,
+  updater: (note: Note) => Note,
+): NotesState {
+  const note = findNote(state.notes, id)
+  if (!note) return state
+
+  const updated = updater(note)
+  if (areNotesEqual(note, updated)) return state
+
+  return {
+    ...state,
+    notes: state.notes.map((candidate) =>
+      candidate.id === id ? updated : candidate,
+    ),
+  }
+}
+
 export function notesReducer(
   state: NotesState,
   action: NotesAction,
@@ -61,45 +101,17 @@ export function notesReducer(
 
     case "note/moved": {
       const { id, position } = action.payload
-      const note = state.notes.find((candidate) => candidate.id === id)
-      // A click without movement commits the position it started from; bailing
-      // out keeps that from re-rendering the note for nothing.
-      if (!note || (note.x === position.x && note.y === position.y)) {
-        return state
-      }
-      return {
-        ...state,
-        notes: state.notes.map((candidate) =>
-          candidate.id === id
-            ? { ...candidate, x: position.x, y: position.y }
-            : candidate,
-        ),
-      }
+      return updateNote(state, id, (note) => ({ ...note, ...position }))
     }
 
     case "note/resized": {
       const { id, rect } = action.payload
-      const note = state.notes.find((candidate) => candidate.id === id)
-      if (
-        !note ||
-        (note.x === rect.x &&
-          note.y === rect.y &&
-          note.width === rect.width &&
-          note.height === rect.height)
-      ) {
-        return state
-      }
-      return {
-        ...state,
-        notes: state.notes.map((candidate) =>
-          candidate.id === id ? { ...candidate, ...rect } : candidate,
-        ),
-      }
+      return updateNote(state, id, (note) => ({ ...note, ...rect }))
     }
 
     case "note/removed": {
       const { id } = action.payload
-      if (!state.notes.some((candidate) => candidate.id === id)) return state
+      if (!findNote(state.notes, id)) return state
       return {
         ...state,
         notes: state.notes.filter((candidate) => candidate.id !== id),
@@ -108,41 +120,24 @@ export function notesReducer(
 
     case "note/broughtToFront": {
       const { id } = action.payload
-      const note = state.notes.find((candidate) => candidate.id === id)
+      const note = findNote(state.notes, id)
       if (!note || note.zIndex === state.topZIndex) return state
 
       const zIndex = state.topZIndex + 1
       return {
-        ...state,
+        ...updateNote(state, id, (candidate) => ({ ...candidate, zIndex })),
         topZIndex: zIndex,
-        notes: state.notes.map((candidate) =>
-          candidate.id === id ? { ...candidate, zIndex } : candidate,
-        ),
       }
     }
 
     case "note/colorChanged": {
       const { id, color } = action.payload
-      const note = state.notes.find((candidate) => candidate.id === id)
-      if (!note || note.color === color) return state
-      return {
-        ...state,
-        notes: state.notes.map((candidate) =>
-          candidate.id === id ? { ...candidate, color } : candidate,
-        ),
-      }
+      return updateNote(state, id, (note) => ({ ...note, color }))
     }
 
     case "note/textChanged": {
       const { id, text } = action.payload
-      const note = state.notes.find((candidate) => candidate.id === id)
-      if (!note || note.text === text) return state
-      return {
-        ...state,
-        notes: state.notes.map((candidate) =>
-          candidate.id === id ? { ...candidate, text } : candidate,
-        ),
-      }
+      return updateNote(state, id, (note) => ({ ...note, text }))
     }
   }
 }

@@ -28,11 +28,16 @@ export function NotesProvider({ children }: NotesProviderProps) {
   // mistaken for a batch of creates (see the hydration effect below).
   const previousNotesRef = useRef<readonly Note[]>(initialNotesState.notes)
 
+  // The initial load is a snapshot taken before it resolves; if the user
+  // creates or edits a note while it's still in flight, that snapshot is
+  // already stale and must not overwrite what they just did.
+  const hasLocalChangesRef = useRef(false)
+
   useEffect(() => {
     let cancelled = false
     fetchNotes()
       .then((notes) => {
-        if (cancelled) return
+        if (cancelled || hasLocalChangesRef.current) return
         previousNotesRef.current = notes
         dispatch({ type: "notes/hydrated", payload: { notes } })
       })
@@ -82,23 +87,26 @@ export function NotesProvider({ children }: NotesProviderProps) {
 
   // `dispatch` is stable, so the actions object is created once and never
   // invalidates consumers of NoteActionsContext.
-  const actions = useMemo<NoteActions>(
-    () => ({
-      addNote: (rect) => dispatch({ type: "note/added", payload: { rect } }),
+  const actions = useMemo<NoteActions>(() => {
+    const act = (action: Parameters<typeof dispatch>[0]) => {
+      hasLocalChangesRef.current = true
+      dispatch(action)
+    }
+    return {
+      addNote: (rect) => act({ type: "note/added", payload: { rect } }),
       moveNote: (id, position) =>
-        dispatch({ type: "note/moved", payload: { id, position } }),
+        act({ type: "note/moved", payload: { id, position } }),
       resizeNote: (id, rect) =>
-        dispatch({ type: "note/resized", payload: { id, rect } }),
-      removeNote: (id) => dispatch({ type: "note/removed", payload: { id } }),
+        act({ type: "note/resized", payload: { id, rect } }),
+      removeNote: (id) => act({ type: "note/removed", payload: { id } }),
       bringNoteToFront: (id) =>
-        dispatch({ type: "note/broughtToFront", payload: { id } }),
+        act({ type: "note/broughtToFront", payload: { id } }),
       setNoteColor: (id, color) =>
-        dispatch({ type: "note/colorChanged", payload: { id, color } }),
+        act({ type: "note/colorChanged", payload: { id, color } }),
       setNoteText: (id, text) =>
-        dispatch({ type: "note/textChanged", payload: { id, text } }),
-    }),
-    [],
-  )
+        act({ type: "note/textChanged", payload: { id, text } }),
+    }
+  }, [])
 
   const syncStatus = useMemo<NotesSyncStatus>(
     () => ({

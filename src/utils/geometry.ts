@@ -37,15 +37,27 @@ export function clampRectToBounds(
   bounds: Size,
   minSize: Size,
 ): Rect {
-  const x = clamp(rect.x, 0, bounds.width - minSize.width)
-  const y = clamp(rect.y, 0, bounds.height - minSize.height)
+  let { x, y, width, height } = rect
 
-  return {
-    x,
-    y,
-    width: clamp(rect.width, minSize.width, bounds.width - x),
-    height: clamp(rect.height, minSize.height, bounds.height - y),
+  // A resize that dragged the origin past the edge (e.g. the west/north grip
+  // pulled past the canvas boundary) must shrink from that same edge here;
+  // clamping x/y back to 0 without adjusting width/height would instead grow
+  // the untouched opposite edge outward.
+  if (x < 0) {
+    width += x
+    x = 0
   }
+  if (y < 0) {
+    height += y
+    y = 0
+  }
+
+  width = clamp(width, minSize.width, bounds.width - x)
+  height = clamp(height, minSize.height, bounds.height - y)
+  x = clamp(x, 0, bounds.width - width)
+  y = clamp(y, 0, bounds.height - height)
+
+  return { x, y, width, height }
 }
 
 /**

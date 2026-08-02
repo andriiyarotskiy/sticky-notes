@@ -28,7 +28,7 @@ export interface EditableTextProps {
  * Detection is done by hand on `pointerdown` timing and position rather than
  * the native `dblclick` event, which a draggable ancestor's
  * `setPointerCapture` would otherwise interfere with. Position matters as
- * much as timing: without it, clicking a note, dragging it elsewhere, and
+ * much as timing: without it, clicking an item, dragging it elsewhere, and
  * clicking it again in quick succession would misread as a double-click
  * (same element, both pointerdowns close in time) instead of two unrelated
  * single clicks — requiring both pointerdowns to land near the same spot is

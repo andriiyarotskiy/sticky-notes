@@ -22,8 +22,8 @@
   margin: 0;
   padding: 0;
   /* Font-family only: font-size/line-height/color are left for the caller's
-     own className to set (e.g. sticky-note__text) — matching what the idle
-     display picks up from the very same class. A `font: inherit` shorthand
+     own className to set — matching what the idle display picks up from the
+     very same class. A `font: inherit` shorthand
      here would compete with that className at equal specificity, so which
      one wins would depend on unrelated CSS import order and could make the
      textarea render at a different size than the idle text it replaces. */
